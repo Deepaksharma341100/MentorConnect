@@ -13,11 +13,11 @@ def registerationControllerFunction():
         
         data = request.form
         print(data)
-        firstName = data.get("firstName")
-        middleName = convertNone(data.get("middleName"))
-        lastName = convertNone(data.get("lastName"))
+        firstName = data.get("FirstName")
+        middleName = convertNone(data.get("MiddleName"))
+        lastName = convertNone(data.get("LastName"))
         email = data.get("email")
         phone = data.get("phone")
         password = data.get("password")
         return registerLogicObj.register(firstName,middleName,lastName,email,phone,password)
-    return render_template('signUpIn/<filename>.html')
+    return render_template('Authentication/register.html')

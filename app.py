@@ -1,4 +1,4 @@
-from flask import Flask, session 
+from flask import Flask, session ,render_template
 
 app = Flask(__name__)
 app.secret_key = "secret-key-Mentor-Connect"
@@ -7,15 +7,12 @@ import registration.registrationController
 import login.loginController
 
 
-@app.route('/')
+@app.route('/' , methods=["GET"])
 def mentorconnect():
     userInfo = session.get("userInfo")
     if(userInfo==None):
         session['userInfo'] = None
 
-    return "welocome to MentorConnect"  
+    return render_template("components/home.html")
 
 
-
-if __name__ == '__main__':
-    app.run()

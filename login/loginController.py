@@ -1,4 +1,4 @@
-from flask import request
+from flask import request,render_template
 from app import app
 from login.loginLogic import loginLogic
 
@@ -11,4 +11,4 @@ def loginControllerFuction():
         email = data.get('email')
         password = data.get('password')
         return loginObj.loginLogicFunction(email,password)
-    return "hello world from login"
+    return render_template("Authentication/login.html")

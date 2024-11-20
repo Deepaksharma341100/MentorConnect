@@ -3,7 +3,7 @@ from flask import jsonify,session
 class loginLogic():
     def __init__(self):
         try:
-            self.con = mysql.connector.connect(host="localhost",user = "root",password="12345",database = "mentorconnect")
+            self.con = mysql.connector.connect(host="localhost",user = "root",password="Deepak@13402",database = "users")
             self.cur = self.con.cursor(dictionary=True)
         except:
             return jsonify({'status': 'fail', 'message': 'database connection failed'}), 401
