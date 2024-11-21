@@ -15,4 +15,11 @@ def mentorconnect():
 
     return render_template("components/home.html")
 
+@app.route("/Dashboard" , methods=["GET"])
 
+def Dashboard():
+    return render_template("user/Dashboard.html")
+@app.route("/Bio" , methods=["GET","POST"])
+
+def Bio():
+    return render_template("user/bio.html")

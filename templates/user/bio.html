@@ -1,0 +1,30 @@
+{% extends "layouts/base.html" %} {% block title %} Home Page {% endblock %} {%
+block content %} {% include "includes/navbar.html" %}
+
+<div class="container d-flex justify-content-center 10vh">
+  <div class="card mt-3 mb-3 shadow-lg">
+    <form action="" method="post" style="width: 40vw">
+      <div class="card-title">
+        <center><h4>Add Your Bio</h4></center>
+      </div>
+      <div class="card-body">
+        <textarea
+          type="text"
+          id="Bio"
+          name="Bio"
+          class="form-control"
+          rows="10"
+          cols="20"
+          required
+        ></textarea>
+      </div>
+      <div class="card-footer">
+        <div class="d-grid">
+          <button class="btn btn-primary btn-block">ADD</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+{% endblock %}
