@@ -1,6 +1,11 @@
 {% extends "layouts/base.html" %} {% block title %} Home Page {% endblock %} {%
-block content %} {% include "includes/navbar.html" %}
-
+block content %}
+<nav class="navbar navbar-expand-lg bg-primary mb-3">
+  <div class="container-fluid">
+    <a class="navbar-brand text-white" href="/">MentorConnect</a>
+  </div>
+</nav>
+<!--to add bio in profile-->
 <div class="container d-flex justify-content-center 10vh">
   <div class="card mt-3 mb-3 shadow-lg">
     <form action="" method="post" style="width: 40vw">

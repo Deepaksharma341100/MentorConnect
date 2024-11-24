@@ -1,9 +1,9 @@
-import mysql.connector
-from flask import jsonify,session
+import mysql.connector 
+from flask import jsonify,session , render_template,redirect
 class loginLogic():
     def __init__(self):
         try:
-            self.con = mysql.connector.connect(host="localhost",user = "root",password="Deepak@13402",database = "users")
+            self.con = mysql.connector.connect(host="localhost",user = "root",password="12345",database = "mentorconnect")
             self.cur = self.con.cursor(dictionary=True)
         except:
             return jsonify({'status': 'fail', 'message': 'database connection failed'}), 401
@@ -18,6 +18,9 @@ class loginLogic():
             user_info.pop('password')
             session['userInfo'] = user_info
             print(session['userInfo'],"from loginlogic")
-            return jsonify({'status': 'success', 'user_info': user_info}), 200
+            # if email and password is correct go to home page
+            return render_template("components/home.html")
+
         else:
-            return jsonify({'status': 'fail', 'message': 'Invalid email or password'}), 401
+            #if incorrect email or password then email or password is incorrect
+            return render_template("Authentication/login.html" , message="Email or password incorect please try again")

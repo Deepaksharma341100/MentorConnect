@@ -32,13 +32,10 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
           <div class="navbar-nav">
-            <a
-              class="nav-link text-white"
-              aria-current="page"
-              href="/registration"
-              >Sign-up</a
-            >
+            {% if user_Info == None %}
+            <a class="nav-link text-white" href="/registration">Sign-up</a>
             <a class="nav-link text-white" href="/login">Sign-in</a>
+            {% endif %}
           </div>
         </div>
       </div>
@@ -46,40 +43,102 @@
 
     <div class="container">
       <header>
-        <h1>Welcome, {{ Firstname }}</h1>
+        <h1>
+          <!--Firtname for currentlogged in user and firstname for if you are searching for other user-->
+          {% if user_Info.FirstName %}Welcome,{% endif %}{% if
+          user_Info.FirstName or user_Info.firstname %} {{user_Info.FirstName or
+          user_Info.firstname}} {% endif %}
+        </h1>
         <nav>
           <ul>
             <li><a href="/Bio">Add Bio</a></li>
-            <li><a href="#">Messages</a></li>
-            <li><a href="#">Logout</a></li>
+            <li><a href="/logout">Logout</a></li>
           </ul>
         </nav>
       </header>
 
       <main>
         <div class="info-section">
-          <h2>Your Information</h2>
+          <h2>User Information</h2>
           <p>
-            <strong>Full Name:</strong> {{ Firstname }} {{ Middlename }} {{
-            Lastname }}
+            <strong>Full Name:</strong> {{ user_Info.FirstName or
+            user_Info.firstname }} {{ user_Info.middlename }} {{
+            user_Info.lastname }}
           </p>
-          <p><strong>Email:</strong> {{ Email }}</p>
-          <p><strong>Phone:</strong> {{ Phone }}</p>
-          <p><strong>Your Bio: {{Bio}}</strong></p>
+          <p><strong>Email:</strong> {{ user_Info.email }}</p>
+          <p><strong>Phone:</strong> {{ user_Info.phone }}</p>
+          <p>
+            <strong>Your Bio:</strong> {{ user_Info.userbio if user_Info.userbio
+            else 'No bio available' }}
+          </p>
         </div>
 
         <div class="mentor-section">
-          <h2>Mentor/Mentee Activities</h2>
-          <div class="card">
-            <h3>Upcoming Sessions</h3>
-            <p>No sessions scheduled yet. <a href="#">Schedule Now</a></p>
+          <div class="card p-3">
+            <h3>Sessions</h3>
+            <!--if sessions then show sessions-->
+            {% if user_Info.sessions and user_Info.sessions|length > 0 %}
+            <div class="table-responsive">
+              <table class="table table-bordered table-striped">
+                <thead class="thead-dark">
+                  <tr>
+                    <th>Topic</th>
+                    <th>Date</th>
+                    <th>Time</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for session in user_Info.sessions %}
+                  <tr>
+                    <td><strong>{{ session.sessiontopic }}</strong></td>
+                    <td>{{ session.sessiondate }}</td>
+                    <td>{{ session.sessiontime }}</td>
+                    <td>
+                      <a
+                        href="{{ session.sessionlink }}"
+                        target="_blank"
+                        class="btn btn-primary btn-sm text-white"
+                        >Join Session</a
+                      >
+                    </td>
+                  </tr>
+                  {% endfor %}
+                </tbody>
+              </table>
+            </div>
+            {% else %}
+            <p>
+              No sessions scheduled yet.
+              <a href="#" class="btn btn-secondary btn-sm">Schedule Now</a>
+            </p>
+            {% endif %}
           </div>
-          <div class="card">
-            <h3>Messages</h3>
-            <p>You have 3 new messages. <a href="#">View Messages</a></p>
-          </div>
+        </div>
+        <div class="card">
+          <!-- Show session request button and follow button only if viewing another user's profile -->
+          {% if user_Info.sessionRequestButton %}
+          <button class="btn btn-primary mt-3 mb-3">
+            <a href="/requestsession" class="text-white">Request Session</a>
+          </button>
+          <button class="btn btn-primary mt-3">Follow</button>
+          {% endif %}
+
+          <!-- Show session requests only if the user is viewing their own profile -->
+          {% if user_Info.sessionsRequests and user_Info.sessionsRequests|length
+          > 0 %}
+          <p>
+            You have {{ user_Info.sessionsRequests|length }} new session
+            requests.
+            <a href="/sessionaccepted">View Requests</a>
+          </p>
+          {% else %} {% if not user_Info.sessionRequestButton %}
+          <p>No pending session requests.</p>
+          {% endif %} {% endif %}
         </div>
       </main>
     </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
   </body>
 </html>

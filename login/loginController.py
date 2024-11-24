@@ -6,6 +6,7 @@ loginObj = loginLogic()
 
 @app.route("/login",methods = ['POST','GET'])
 def loginControllerFuction():
+    # if get requesg then go to /login
     if(request.method == 'POST'):
         data = request.form
         email = data.get('email')

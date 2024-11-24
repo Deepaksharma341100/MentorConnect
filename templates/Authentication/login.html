@@ -1,5 +1,9 @@
 {% extends "layouts/base.html" %} {% block title %} Login {% endblock %} {%
-block content %} {% include "includes/navbar.html" %}
+block content %} {% include "includes/navbar.html" %} {% if message %}
+<!--message show incorrect password or email-->
+<center><h3>{{message}}</h3></center>
+{% endif %}
+
 <div class="container d-flex justify-content-center align-items-center vh-100">
   <div class="card shadow-lg" style="width: 100%; max-width: 500px">
     <div class="card-body">
